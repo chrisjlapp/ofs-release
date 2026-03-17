@@ -165,7 +165,7 @@ Also back up your `.env` file — it contains the encryption key needed to acces
 ## C9K Initial Setup
 
 ### 1. Run through initial setup of switch to generate basic config
-
+Make sure your switch is reachable either through mgmt0 or inband through a SVI for Vlan1 (or other)
 Then enable NETCONF with the commands below:
 
 ```
