@@ -104,7 +104,7 @@ The installer will:
 
 Navigate to **http://\<your-server-ip\>** in a browser.
 
-Default credentials are created on first run — log in with the admin account and change your password immediately.
+Default credentials are created on first run — (admin@ofs.local/admin) log in with the admin account and change your password immediately.
 
 ---
 
