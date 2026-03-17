@@ -1,7 +1,7 @@
 # Open Fabric Studio — Deployment Guide (v0.8.5)
 
 Real-time visual network planning, monitoring, and configuration for professional AV networks.
-
+Currently supports Catalyst 9000 and Nexus 9300 Switches.
 ---
 
 ## Prerequisites
@@ -94,6 +94,26 @@ docker exec -i ofs-release-db-1 psql -U cfs cfs < ofs_backup_YYYYMMDD.sql
 Also back up your `.env` file — it contains the encryption key needed to access device credentials.
 
 ---
+
+
+## C9K inital setup
+
+### 1. run through inital setup of switch to generate basic config
+then enable netconf with below
+
+```
+## make your password from  above priv-15
+conf t
+aaa new-model
+username admin privilege 15 password 0 [password_here]
+service password-encryption
+## then enable netconf
+conf t
+netconf-yang
+## the first time you enable netconf, it takes about 5-10 min to sync the datastore, so grab a coffee
+
+```
+
 
 ## Support
 
