@@ -1,4 +1,4 @@
-# Open Fabric Studio — Release Notes v0.8.5
+# Open Fabric Studio — Release Notes v0.8.5c (ALPHA)
 
 **Release Date:** 2026-03-17
 
