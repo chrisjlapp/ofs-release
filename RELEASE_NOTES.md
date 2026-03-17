@@ -80,6 +80,7 @@ docker compose up -d
 - NX-OS QoS and DHCP configuration are not yet supported (planned for a future release).
 - Bulk device import via CSV is not yet available.
 - The renderer bundle exceeds 500 kB — code-splitting is planned for a future optimisation release.
+- Currently working on PTP deployment
 
 ---
 
