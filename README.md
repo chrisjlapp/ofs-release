@@ -98,3 +98,10 @@ Also back up your `.env` file — it contains the encryption key needed to acces
 ## Support
 
 Still figuring that part out
+
+
+
+
+## License
+
+Licensed under the Apache License 2.0. See [LICENSE](./LICENSE).
