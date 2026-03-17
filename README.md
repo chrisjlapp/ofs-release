@@ -1,8 +1,15 @@
 # Open Fabric Studio — Deployment Guide (v0.8.5)
 
 Real-time visual network planning, monitoring, and configuration for professional AV networks.
-Currently supports Catalyst 9000 and Nexus 9300 Switches.
+
 ---
+
+## Currently supported Network Hardware
+
+- Catalyst 9000
+- Nexus 9300
+
+  ---
 
 ## Prerequisites
 
