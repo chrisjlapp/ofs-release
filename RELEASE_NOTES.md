@@ -1,4 +1,4 @@
-# Open Fabric Studio — Release Notes v0.8.6a
+# Open Fabric Studio — Release Notes v0.8.6
 
 **Release Date:** 2026-03-18
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-v0.8.6a is a maintenance update focused on cleaner topology discovery, safer IOS-XE intent deployment, better brownfield intent import from live devices, and more control over which interfaces appear in the topology map.
+v0.8.6 is a maintenance update focused on cleaner topology discovery, safer IOS-XE intent deployment, better brownfield intent import from live devices, and more control over which interfaces appear in the topology map.
 
 ---
 
@@ -30,9 +30,6 @@ v0.8.6a is a maintenance update focused on cleaner topology discovery, safer IOS
 - Add dedicated controls in the Add Device and Edit Device dialogs for managing manual interface exclusions
 - Hide the exclusion textarea until the option is enabled to reduce visual clutter
 - Continue to keep `GigabitEthernet0/0` excluded by default from topology rendering
-
-### Version Update
-- Update the application UI version label to `v0.8.6a`
 
 ---
 
