@@ -1,4 +1,74 @@
-# Open Fabric Studio — Release Notes v0.8.5c (ALPHA)
+# Open Fabric Studio — Release Notes v0.8.6a
+
+**Release Date:** 2026-03-18
+
+---
+
+## Overview
+
+v0.8.6a is a maintenance update focused on cleaner topology discovery, safer IOS-XE intent deployment, better brownfield intent import from live devices, and more control over which interfaces appear in the topology map.
+
+---
+
+## What's New
+
+### Brownfield VLAN, SVI, and Loopback Discovery
+- Expand brownfield discovery so existing device VLANs, SVIs, and Loopbacks are merged into the global network intent
+- Improve parsing and persistence for discovered SVIs and Loopbacks so real device state is reflected more reliably after discovery
+- Preserve discovered management-facing SVI information while pruning stale orphaned Loopback intent entries
+
+### Edge Port VLAN Dropdown Selection
+- Replace manual access VLAN number entry in the edge-port workflow with a dropdown populated from the global VLAN intent
+- Make edge-port staging faster and reduce invalid VLAN assignment mistakes during access-port configuration
+
+### Per-Device Topology Interface Exclusions
+- Add per-device interface exclusion patterns so management or unused ports can be omitted from topology and ISL views
+- Support exact interface names and wildcard patterns (for example `GigabitEthernet1/0/*`)
+- Preserve exclusion settings in device credentials and configuration export bundles
+
+### Improved Device Configuration UX
+- Add dedicated controls in the Add Device and Edit Device dialogs for managing manual interface exclusions
+- Hide the exclusion textarea until the option is enabled to reduce visual clutter
+- Continue to keep `GigabitEthernet0/0` excluded by default from topology rendering
+
+### Version Update
+- Update the application UI version label to `v0.8.6a`
+
+---
+
+## Bug Fixes
+
+| Area | Fix |
+|------|-----|
+| Topology | Exclude matching interfaces from rendered topology links and ISL selections |
+| Discovery | Prune orphaned loopback intents discovered on devices so stale loopbacks are removed cleanly |
+| IOS-XE deployment | Restore SVI no-shutdown deployment handling so active SVIs come up correctly |
+| Discovery / UI sync | Remove an unnecessary discovery intent refresh workaround from the WebSocket flow |
+
+---
+
+## Upgrade Notes
+
+Upgrade from v0.8.5 or earlier with the standard container refresh workflow:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+No manual data migration is required for this update.
+
+---
+
+## Known Limitations
+
+- NX-OS QoS and DHCP configuration are not yet supported (planned for a future release).
+- Bulk device import via CSV is not yet available.
+- The renderer bundle exceeds 500 kB — code-splitting is planned for a future optimisation release.
+
+---
+
+# Open Fabric Studio — Release Notes v0.8.5
 
 **Release Date:** 2026-03-17
 
@@ -80,7 +150,6 @@ docker compose up -d
 - NX-OS QoS and DHCP configuration are not yet supported (planned for a future release).
 - Bulk device import via CSV is not yet available.
 - The renderer bundle exceeds 500 kB — code-splitting is planned for a future optimisation release.
-- Currently working on PTP deployment
 
 ---
 
