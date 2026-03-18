@@ -117,6 +117,7 @@ Default credentials are created on first run — (admin@ofs.local/admin) log in 
 When a new release is available, pull the updated images and restart:
 
 ```bash
+git pull origin
 docker compose pull
 docker compose up -d
 ```
