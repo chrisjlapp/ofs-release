@@ -94,6 +94,9 @@ cd ofs-release
 ```bash
 chmod +x install.sh
 ./install.sh
+
+## if you get a permission error, it is likely your docker permissions, so try the below in the ofs-release directory
+sudo docker compose up --build
 ```
 
 The installer will:
@@ -175,6 +178,10 @@ conf t
 aaa new-model
 username admin privilege 15 password 0 [password_here]
 service password-encryption
+## you may also require
+aaa authentication login default local
+aaa authorization exec default local
+
 ## Then enable NETCONF
 conf t
 netconf-yang
