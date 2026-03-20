@@ -53,6 +53,7 @@ v0.9.2 expands the platform with edge device inventory and topology support, int
 Upgrade from v0.8.6a or earlier with the standard container refresh workflow:
 
 ```bash
+git pull origin
 docker compose pull
 docker compose up -d
 ```
