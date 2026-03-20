@@ -1,4 +1,75 @@
-# Open Fabric Studio — Release Notes v0.8.6
+# Open Fabric Studio — Release Notes v0.9.2
+
+**Release Date:** 2026-03-20
+
+---
+
+## Overview
+
+v0.9.2 expands the platform with edge device inventory and topology support, introduces inter-VLAN routing intent management, improves discovery and deployment flows, and adds new system settings for debugging and OUI vendor overrides.
+
+---
+
+## What's New
+
+### Edge Device Management
+- Add dedicated edge device inventory APIs, persistence, and UI workflows for creating, editing, and deleting edge devices
+- Render edge devices directly in topology and edge-configuration views so operator workflows can include non-switch endpoints
+- Persist learned edge identity details to improve topology accuracy and day-two visibility
+
+### Inter-VLAN Routing Intent
+- Add an inter-VLAN routing modal and intent model updates for managing routed SVI relationships from the UI
+- Extend staging, validation, and config export/import flows so inter-VLAN routing settings travel with the project intent
+- Improve loopback and SVI helpers used by routing workflows to keep generated intent data consistent
+
+### Discovery, Deployment, and Connectivity Improvements
+- Expand discovery-engine and deployment handling for newer intent shapes, edge-aware workflows, and improved device state synchronisation
+- Add NETCONF connection manager support to stabilise backend connectivity behaviour during repeated operations
+- Improve device and settings APIs so system-wide configuration is persisted more reliably
+
+### Settings and Diagnostics
+- Add backend-backed system settings management, including debug-mode persistence
+- Add support for user-managed OUI vendor overrides to improve endpoint labelling and troubleshooting
+- Introduce a debug devices page to assist with validation and support workflows
+
+### Version Update
+- Update the application UI version label to `v0.9.2`
+
+---
+
+## Bug Fixes
+
+| Area | Fix |
+|------|-----|
+| Edge interface staging | Correct staged edge interface updates so intent diffs include the expected changes |
+| Config export/import | Align bundle handling with the expanded intent and settings model |
+| Device management | Improve credential and device record handling during edits and rediscovery |
+| Topology | Improve link, handle, and node rendering for edge-aware topology layouts |
+
+---
+
+## Upgrade Notes
+
+Upgrade from v0.8.6a or earlier with the standard container refresh workflow:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+
+
+---
+
+## Known Limitations
+
+- NX-OS QoS and DHCP configuration are not yet supported (planned for a future release).
+- Bulk device import via CSV is not yet available.
+- The renderer bundle exceeds 500 kB — code-splitting is planned for a future optimisation release.
+
+---
+
+# Open Fabric Studio — Release Notes v0.8.6a
 
 **Release Date:** 2026-03-18
 
@@ -6,7 +77,7 @@
 
 ## Overview
 
-v0.8.6 is a maintenance update focused on cleaner topology discovery, safer IOS-XE intent deployment, better brownfield intent import from live devices, and more control over which interfaces appear in the topology map.
+v0.8.6a is a maintenance update focused on cleaner topology discovery, safer IOS-XE intent deployment, better brownfield intent import from live devices, and more control over which interfaces appear in the topology map.
 
 ---
 
@@ -30,6 +101,9 @@ v0.8.6 is a maintenance update focused on cleaner topology discovery, safer IOS-
 - Add dedicated controls in the Add Device and Edit Device dialogs for managing manual interface exclusions
 - Hide the exclusion textarea until the option is enabled to reduce visual clutter
 - Continue to keep `GigabitEthernet0/0` excluded by default from topology rendering
+
+### Version Update
+- Update the application UI version label to `v0.8.6a`
 
 ---
 
