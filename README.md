@@ -76,7 +76,9 @@
 
 - [Docker](https://docs.docker.com/get-docker/) (version 24 or later)
 - Docker Compose v2 (bundled with Docker Desktop / modern Docker Engine)
+- git installed on host
 - A Linux or macOS host (Windows with WSL2 is also supported)
+- Validation is done  with Ubuntu 24.04.xx LTS. Report issues with any OS in issues.
 
 ---
 
