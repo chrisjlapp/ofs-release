@@ -1,6 +1,7 @@
 <div align="center">
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 215" fill="none" width="120" height="129">
+<img width="1536" height="1024" alt="OFS_logo_2" src="https://github.com/user-attachments/assets/643da2e6-295c-4ab7-985d-43697858fc77" />
+
   <defs>
     <linearGradient id="g" x1="15" y1="10" x2="188" y2="188" gradientUnits="userSpaceOnUse">
       <stop offset="0%"   stop-color="#00D8B0"/>
