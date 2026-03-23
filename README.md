@@ -61,7 +61,7 @@
   Real-time visual network configuration and monitoring  for professional AV networks. 
   Current target is greenfield installations, unknown results with brownfield.
 
-  Check our the UI Walkthrough here https://github.com/chrisjlapp/ofs-release/wiki/UI-Navigation
+  Check out the UI Walkthrough here https://github.com/chrisjlapp/ofs-release/wiki/UI-Navigation
   
 </p>
 
