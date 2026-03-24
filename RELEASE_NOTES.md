@@ -1,3 +1,103 @@
+# Open Fabric Studio — Release Notes v0.10.2
+
+**Release Date:** 2026-03-24
+
+---
+
+## Overview
+
+v0.10.2 builds on v0.9.3 with operator-facing drift detection, more granular deployment controls, expanded PTP support for NX-OS, and a cleaner settings and topology experience.
+
+
+## What's New Since v0.9.3
+
+### DHCP Discovery and Monitoring Enhancements
+- Add brownfield DHCP intent import during discovery so existing pool configuration is captured from live devices
+- Support per-pool DHCP server assignment and add a DHCP pool server selector in the intent modal
+- Improve DHCP discovery parsing, broaden brownfield get-config filtering, and add safer handling for multi-server monitoring workflows
+- Add a dedicated DHCP monitoring switch selector and auto-exclude SVI interface IPs from DHCP pool ranges
+
+### Inter-VLAN Multicast Workflow Improvements
+- Add multicast routing controls to the inter-VLAN workflow
+- Fix inter-VLAN multicast toggle persistence so changes are retained across edit/save cycles
+- Fix SVI PIM toggle visibility and prevent IGMP querier enablement when PIM is selected
+- Preserve staged SVI multicast flags and improve deployment UX by hiding remove-staged actions during active deployments
+
+### Configuration Drift Detection, Expanded Coverage, and Platform Fixes
+- Add background drift detection that compares both saved intent and live running configuration against the last successful deployment
+- Surface drift status in a persistent in-app banner with section-level summaries and per-device detail lines
+- Allow operators to resolve detected drift directly from the banner with a full-intent redeploy action
+- Expand drift checks to include ISLs and port channels and improve false-positive handling during intent comparisons
+- Ignore ISL drift checks for interfaces excluded from topology using management-IP-based matching
+- Normalize IOS-XE short/long interface name handling across discovery and telemetry flows
+- Fix backend TypeScript type issues in admin/topology intent paths to stabilise builds
+
+### Deployment Controls and Day-Two Operations
+- Add Deployment Settings so each major intent section can be deployed in either **Full Push** or **Diff Only** mode
+- Persist deployment-mode preferences in the UI so operators can tune change windows and reduce unnecessary pushes
+- Improve staged deployment handling so unchanged interfaces are skipped more reliably during edge-port deployments
+- Add a link-cleanup utility tab in Devices to help remove stale topology links during troubleshooting
+- Expand admin reset behavior to clear edge devices and edge intent data along with baseline configuration state
+
+### Telemetry, Discovery, and Topology Improvements
+- Introduce IOS-XE gNMI telemetry ingestion for faster topology and neighbor-state updates
+- Improve gNMI CDP/LLDP merge behavior and adjust transport defaults/subscription behavior for broader device compatibility
+- Improve brownfield discovery so ISL, port-channel, and edge intent state are synchronized more consistently from discovered devices
+- Improve topology auto-fit behavior so the canvas frames devices more consistently on page open and refresh
+
+### PTP Enhancements
+- Add per-interface NX-OS PTP deployment support for edge ports and related interface workflows
+- Improve the PTP intent model and validation defaults so best-practice and manual modes stage more reliably
+- Expand IOS-XE and NX-OS PTP implementation guidance with updated command-reference documentation
+
+### Monitoring and Settings UX
+- Reorganize the Settings page into clearer tabbed sections for easier navigation
+- Add expandable DHCP monitoring views by pool for active DHCP server switches
+- Brighten the application blue palette slightly for better contrast and readability
+- Collapse intent-controlled edge interfaces by default to reduce noise in Edge Config workflows
+
+### Platform Reliability Improvements
+- Improve IOS-XE device polling by persisting OS type and backfilling detected license levels more reliably
+- Normalize DHCP monitoring parsing to handle non-string XML values safely
+- Update dependencies and resolve TypeScript and audit issues to stabilize development and release builds
+
+---
+
+## Bug Fixes
+
+| Area | Fix |
+|------|-----|
+| Drift detection | Correct false-positive VLAN drift results and improve section comparison detail |
+| Stage validation | Add defaults for backward-compatible boolean and PTP sub-fields so older intent shapes validate cleanly |
+| Error handling | Prevent raw non-string API error objects from surfacing as `[object Object]` in the UI |
+| Topology | Fix node-position resets and improve repeated auto-fit behavior on topology updates |
+| Connectivity / polling | Improve IOS-XE Smart Licensing detection and preserve discovered device metadata more consistently |
+
+---
+
+## Upgrade Notes
+
+Upgrade from v0.9.3 or earlier with the standard container refresh workflow:
+
+```bash
+git pull origin
+docker compose pull
+docker compose up -d
+```
+
+If you rely on persistent backend data, ensure the latest database migrations are applied during startup so drift-tracking metadata is available.
+
+---
+
+## Known Limitations
+
+- Device drift checks currently focus on VLANs, SVIs, and edge ports; PTP, QoS, IGMP, ISLs, port channels, DHCP, and loopbacks are not yet fully read back for drift validation.
+- NX-OS QoS and DHCP configuration are not yet supported (planned for a future release).
+- Bulk device import via CSV is not yet available.
+- The renderer bundle exceeds 500 kB — code-splitting is planned for a future optimisation release.
+
+---
+
 # Open Fabric Studio — Release Notes v0.9.2
 
 **Release Date:** 2026-03-20
@@ -53,12 +153,11 @@ v0.9.2 expands the platform with edge device inventory and topology support, int
 Upgrade from v0.8.6a or earlier with the standard container refresh workflow:
 
 ```bash
-git pull origin
 docker compose pull
 docker compose up -d
 ```
 
-
+If you are self-hosting with a persistent database, ensure the latest Prisma migrations are applied as part of your normal backend startup or deployment workflow.
 
 ---
 
