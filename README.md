@@ -55,11 +55,13 @@
   </span>
 </h1>
 
-<h3 style="color: #2050F5; font-weight: 400; margin-top: -8px;">Deployment Guide — v0.9.2 (ALPHA)</h3>
+<h3 style="color: #2050F5; font-weight: 400; margin-top: -8px;">Deployment Guide — v0.10.2 (BETA)</h3>
 
 <p style="color: #6b7280; max-width: 520px;">
   Real-time visual network configuration and monitoring  for professional AV networks. 
   Current target is greenfield installations, unknown results with brownfield.
+
+  Check the current release notes here https://github.com/chrisjlapp/ofs-release/blob/main/RELEASE_NOTES.md
 
   Check out the UI Walkthrough here https://github.com/chrisjlapp/ofs-release/wiki/UI-Navigation
   
