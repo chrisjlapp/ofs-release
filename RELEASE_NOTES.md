@@ -1,6 +1,96 @@
+# Open Fabric Studio — Release Notes v1.1.2
+
+**Release Date:** 2026-03-30
+
+---
+
+## Overview
+
+v1.1.2 is a major feature release that introduces multi-network operations, fabric-link workflows, linked edge-device management, broader NX-OS routed/multicast deployment support, and significant day-two UX and reliability improvements.
+
+## What's New Since v0.10.2
+
+### Multi-Network Operations and Isolation
+- Add a feature-flagged multi-network management model with per-network intent and device isolation
+- Auto-migrate existing single-network intent into a default network when multi-network mode is enabled
+- Add network assignment controls for devices, plus guarded flows when reassigning devices between networks
+- Add network rename support and stricter delete confirmations for devices and networks
+- Preserve pre-existing global intent data while isolating newly created network-scoped intent
+
+### Fabric Links and Cross-Network Topology Workflows
+- Introduce a dedicated Fabric Links experience aligned with ISL workflows and modal editing UX
+- Auto-discover cross-network links as fabric links and scope ISL link views to current-network devices
+- Add routed fabric-link IP fields and improve edit-mode ergonomics by hiding immutable selectors
+- Filter excluded interfaces out of fabric-link selection workflows and improve visual consistency across topology pages
+
+### Linked Edge Devices, Grouping, and Identity Management
+- Add symbolic edge-device linking so related discovered endpoints can be grouped and managed together
+- Add group-level aliasing and richer attachment cards for linked edge-device groups
+- Propagate group alias changes correctly and prevent stale-link state regressions during unlink/reset operations
+- Rename the Management IP label and improve card metadata clarity for operator workflows
+
+### Routing, Multicast, and NX-OS Deployment Expansion
+- Add router and multicast controls for routed edge interfaces and routed ISL links
+- Ensure routed router/PIM toggles are consistently available in ISL and edge intent modals
+- Add NX-OS RPC builders for OSPF process configuration, interface membership, PIM sparse mode, static RP addresses, and SVI/loopback shutdown handling
+- Wire NX-OS inter-VLAN routing and PIM intent into deployment workflows
+- Apply IGMP snooping `tcn flood false` behavior across switchport interfaces during deployment
+
+### Discovery, Device Administration, and Settings
+- Add an automatic discovery toggle in device administration settings
+- Respect manual-only mode for discovered neighbor devices
+- Improve brownfield multi-network intent scoping and default VLAN seed handling
+- Fix NETCONF settings persistence parsing so default connection values are retained reliably
+- Add/expand Cisco IPFM connector configuration support behind feature flags
+
+### UX, Accessibility, and Documentation Improvements
+- Add user-selectable network colors and network badges/pills on topology and edge views to improve network-context visibility
+- Improve accessibility with clearer color-dot placement and color-blind-friendly network labeling in topology
+- Hide tunnel interfaces in the Edge Config page to reduce noise in intent workflows
+- Add extensive user-guide documentation for new features, including linked-edge behavior and updated workflow guidance
+- Update the displayed application version to `v1.1.2`
+
+---
+
+## Bug Fixes
+
+| Area | Fix |
+|------|-----|
+| Multi-network state | Prevent credentials from being wiped when toggling multi-network management and improve disable/revert safety |
+| Topology and links | Clean up stale fabric links when devices are moved/unassigned and fix duplicate import/build issues in UI modules |
+| Edge-device workflows | Fix duplicate network identifiers, hidden-edge filtering, and selection-state regressions in linked-edge flows |
+| Device deletion UX | Fix stale confirmation text persisting across switch-delete dialogs |
+| Runtime compatibility | Add a fallback for environments without `crypto.randomUUID` |
+
+---
+
+## Upgrade Notes
+
+Upgrade from v0.10.2 or earlier with the standard container refresh workflow:
+
+```bash
+git pull origin
+docker compose pull
+docker compose up -d
+```
+
+If you are enabling multi-network mode on an existing deployment, validate network assignments after the automatic migration step before performing production pushes.
+
+---
+
+## Known Limitations
+
+- NX-OS QoS and DHCP configuration are not yet supported (planned for a future release).
+- Bulk device import via CSV is not yet available.
+- The renderer bundle exceeds 500 kB — code-splitting is planned for a future optimisation release.
+
+---
+
 # Open Fabric Studio — Release Notes v0.10.2
 
 **Release Date:** 2026-03-24
+
+---
 
 ---
 
