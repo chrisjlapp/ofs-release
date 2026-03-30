@@ -55,7 +55,7 @@
   </span>
 </h1>
 
-<h3 style="color: #2050F5; font-weight: 400; margin-top: -8px;">Deployment Guide — v0.10.2 (BETA)</h3>
+<h3 style="color: #2050F5; font-weight: 400; margin-top: -8px;">Deployment Guide — v1.1.2</h3>
 
 <p style="color: #6b7280; max-width: 520px;">
   Real-time visual network configuration and monitoring  for professional AV networks. 
