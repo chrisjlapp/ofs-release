@@ -63,7 +63,7 @@
 
   Check the current release notes here https://github.com/chrisjlapp/ofs-release/blob/main/RELEASE_NOTES.md
 
-  Check out the UI Walkthrough here https://github.com/chrisjlapp/ofs-release/wiki/UI-Navigation
+  Check out the User Guide here: https://github.com/chrisjlapp/ofs-release/blob/main/docs/User_Guide/User_Guide.md
   
 </p>
 
