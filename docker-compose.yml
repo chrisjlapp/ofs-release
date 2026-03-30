@@ -30,7 +30,7 @@ services:
       - internal
 
   backend:
-    image: ghcr.io/chrisjlapp/ofs-backend:v0.10.2
+    image: ghcr.io/chrisjlapp/ofs-backend:v1.1.2
     restart: unless-stopped
     depends_on:
       db:
@@ -51,7 +51,7 @@ services:
       retries: 3
 
   renderer:
-    image: ghcr.io/chrisjlapp/ofs-renderer:v0.10.2
+    image: ghcr.io/chrisjlapp/ofs-renderer:v1.1.2
     restart: unless-stopped
     depends_on:
       backend:
