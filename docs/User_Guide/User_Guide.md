@@ -117,6 +117,7 @@ Select a device from the left panel, then use the **Edit** or **Delete** control
 ---
 
 ## 5. Topology
+<img width="1916" height="901" alt="Topology_Link_down" src="https://github.com/user-attachments/assets/6b8a2a1c-74a7-4286-8de8-b3773eff6cbc" />
 
 The **Topology** page is the primary operational view of your live network. After devices have been added and discovery has run, it displays an interactive graph of how your switches are interconnected.
 
