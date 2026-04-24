@@ -1,14 +1,34 @@
+# Open Fabric Studio — Release Notes v1.2.1
+
+**Release Date:** 2026-04-24
+
+---
+
+## Overview
+
+v1.2.1 is a feature release that includes emulated/pre-provisioned device workflows, manual uplink creation for emulated labs, plus the multi-network, fabric-link, linked edge-device, NX-OS deployment, and UX improvements delivered in v1.1.2.
+
+## What's New Since v1.1.2
+
+### Emulated / Pre-Provisioned Device Workflows
+- Add support for emulated and pre-provisioned devices so lab topologies can be modeled before hardware is online
+- Add reconciliation flows to align emulated/pre-provisioned records with discovered live device state
+- Add manual uplink creation between emulated devices to model inter-switch connectivity in advance
+
+
+---
+
 # Open Fabric Studio — Release Notes v1.1.2
 
 **Release Date:** 2026-03-30
 
----
 
 ## Overview
 
 v1.1.2 is a major feature release that introduces multi-network operations, fabric-link workflows, linked edge-device management, broader NX-OS routed/multicast deployment support, and significant day-two UX and reliability improvements.
 
 ## What's New Since v0.10.2
+
 
 ### Multi-Network Operations and Isolation
 - Add a feature-flagged multi-network management model with per-network intent and device isolation
@@ -48,7 +68,7 @@ v1.1.2 is a major feature release that introduces multi-network operations, fabr
 - Improve accessibility with clearer color-dot placement and color-blind-friendly network labeling in topology
 - Hide tunnel interfaces in the Edge Config page to reduce noise in intent workflows
 - Add extensive user-guide documentation for new features, including linked-edge behavior and updated workflow guidance
-- Update the displayed application version to `v1.1.2`
+- Update the displayed application version to `v1.2.1`
 
 ---
 
@@ -89,8 +109,6 @@ If you are enabling multi-network mode on an existing deployment, validate netwo
 # Open Fabric Studio — Release Notes v0.10.2
 
 **Release Date:** 2026-03-24
-
----
 
 ---
 
