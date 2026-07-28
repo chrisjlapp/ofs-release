@@ -1,3 +1,49 @@
+# Open Fabric Studio — Release Notes v1.4.1
+
+**Release Date:** 2026-07-28
+
+---
+
+## Overview
+
+v1.4.1 is a feature release that adds a Multicast Flow Analytics feature to Catalyst 9000 devices running the advantage license.  
+
+## What's New Since v1.2.1
+
+### Flow Analytics backend
+includes:
+-A NetFlow v9/IPFIX UDP collector.
+-Configurable listener behavior with default UDP port 2055.
+-NetFlow template and data-flowset parsing.
+-Collection of protocol, addresses, UDP/TCP ports, input/output interface indexes, byte counts, packet counts, and application metadata.
+-Sixty-second aggregation windows.
+-PostgreSQL persistence.
+-WebSocket-driven live updates.
+
+### Flow Analytics dashboard
+-Periodic 30-second refresh.
+-Live refresh following WebSocket events.
+-Summary metrics.
+-Active-flow tables.
+-Flow clearing/reset.
+-Receiver-path inspection.
+### Flow Analytics config
+-Enable/disable state.
+-A typed collector IPv4 address.
+-Flow aliases.
+-UDP-port traffic categories.
+
+## General fixes and improvements Since v1.2.1
+-Added multi-platform release images for AMD64 and ARM64, enabling Apple Silicon deployments.
+-Documented ARM64/Apple Silicon support in the release prerequisites.
+-Added automatic Prisma client regeneration and database migration handling before backend development startup.
+-Updated the development helper to:
+--Start and health-check PostgreSQL.
+--Load .env.
+--Apply database migrations.
+--Start the backend and renderer development servers
+
+
 # Open Fabric Studio — Release Notes v1.2.1
 
 **Release Date:** 2026-04-24
