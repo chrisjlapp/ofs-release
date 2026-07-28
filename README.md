@@ -71,6 +71,12 @@
 
 ---
 
+## Roadmap
+
+- I am attempting to also support Netgear AV switches currently, but their API has so many bugs it is proving to be very difficult.
+
+---
+
 ## Currently supported Network Hardware
 
 - Catalyst 9000 (validated against 17.15.5)
