@@ -1,6 +1,6 @@
 # Open Fabric Studio — User Guide
 
-**Version 1.0.1 | Pro AV Edition**
+**Version 1.4.1 | Pro AV Edition**
 
 ---
 
@@ -23,14 +23,22 @@
    - 6.9 [Staging and Deploying Changes](#69-staging-and-deploying-changes)
 7. [Edge Devices](#7-edge-devices)
 8. [Multi-Network Fabrics](#8-multi-network-fabrics)
-9. [Settings](#9-settings)
-   - 9.1 [Features](#91-features)
-   - 9.2 [Administration](#92-administration)
-   - 9.3 [Device Connection Settings](#93-device-connection-settings)
-   - 9.4 [Edge Device Settings](#94-edge-device-settings)
-   - 9.5 [Debug Tools](#95-debug-tools)
-10. [User Roles and Permissions](#10-user-roles-and-permissions)
-11. [Audit Log](#11-audit-log)
+9. [Multicast Analytics](#9-multicast-analytics)
+   - 9.1 [Requirements and Data Flow](#91-requirements-and-data-flow)
+   - 9.2 [Configuring Collection](#92-configuring-collection)
+   - 9.3 [Using the Dashboard](#93-using-the-dashboard)
+   - 9.4 [Flow Aliases and Traffic Categories](#94-flow-aliases-and-traffic-categories)
+   - 9.5 [Receiver-Path Inspection](#95-receiver-path-inspection)
+   - 9.6 [Clearing Flow Data](#96-clearing-flow-data)
+   - 9.7 [Troubleshooting](#97-troubleshooting)
+10. [Settings](#10-settings)
+   - 10.1 [Features](#101-features)
+   - 10.2 [Administration](#102-administration)
+   - 10.3 [Device Connection Settings](#103-device-connection-settings)
+   - 10.4 [Edge Device Settings](#104-edge-device-settings)
+   - 10.5 [Debug Tools](#105-debug-tools)
+11. [User Roles and Permissions](#11-user-roles-and-permissions)
+12. [Audit Log](#12-audit-log)
 
 ---
 
@@ -62,7 +70,7 @@ Enter your **email address** and **password**, then click **Sign In**.
 
 If your credentials are incorrect, an inline error message will appear. Contact your administrator if you need a password reset or a new account.
 
-> **Roles:** What you can see and do after login depends on your assigned role. See [User Roles and Permissions](#10-user-roles-and-permissions) for details.
+> **Roles:** What you can see and do after login depends on your assigned role. See [User Roles and Permissions](#11-user-roles-and-permissions) for details.
 
 ---
 
@@ -125,7 +133,7 @@ The **Topology** page is the primary operational view of your live network. Afte
 
 Click the **Discover** button in the top bar to start a discovery scan. OFS uses CDP and LLDP to walk the fabric, identify switches, map port connections, and detect edge devices. A progress indicator appears while discovery is running.
 
-> Discovery can be run on demand or configured to run automatically on a polling interval — see [Settings → Features](#91-features).
+> Discovery can be run on demand or configured to run automatically on a polling interval — see [Settings → Features](#101-features).
 
 ### Using the canvas
 
@@ -407,13 +415,94 @@ Each fabric is treated as an independent scope with its own device registry, int
 
 ---
 
-## 9. Settings
+## 9. Multicast Analytics
+
+**Multicast Analytics** turns exported flow records into an operational view of the multicast traffic crossing the fabric. Use it to identify active senders and receivers, compare packet and byte counts, label important flows, and inspect the network path toward a receiver without reading raw NetFlow records.
+
+> **Availability:** Multicast Analytics requires a supported Cisco Catalyst 9000 switch with the **Advantage** license. It is not available for Nexus devices or Catalyst switches using a lower license tier.
+
+### 9.1 Requirements and Data Flow
+
+Before enabling collection, confirm that:
+
+- The OFS server has a static IPv4 address that the exporting switches can reach.
+- Any host or network firewall permits flow-export traffic from the switches to the OFS server. The default collector port is **UDP 2055**.
+- The switches that will export flow records are registered, reachable, and supported Catalyst 9000 devices with the Advantage license.
+- The collector address is not a loopback or management address that the switches cannot route to.
+
+Each switch exports NetFlow v9/IPFIX templates and flow data to the OFS collector. OFS parses the records, aggregates packets and bytes into 60-second windows, stores the results, and sends live update events to the dashboard. The dashboard also performs a periodic refresh approximately every 30 seconds.
+
+### 9.2 Configuring Collection
+
+<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-config.png -->
+
+Open **Multicast Analytics**, then open its **Config** view.
+
+1. Enter the **Collector IPv4 Address** of the OFS server. Enter an address only; do not include `http://`, a subnet prefix, or a port number.
+2. Confirm the collector's UDP port. Leave it at **2055** unless your deployment uses a different allowed port.
+3. Enable Multicast Analytics.
+4. Save the configuration.
+5. Allow at least one aggregation window for the first flows to appear on the dashboard.
+
+Disabling analytics stops collection but does not imply that previously stored flow data has been cleared. Use the dashboard's clear/reset action when you intentionally want to remove collected results.
+
+### 9.3 Using the Dashboard
+
+<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-dashboard.png -->
+
+The dashboard provides summary metrics and an active-flow table. Use the summary cards for a quick view of current multicast activity, then use the table to investigate individual conversations.
+
+Flow records can include:
+
+| Field | How to use it |
+|---|---|
+| Source and destination address | Identify the sender and multicast group |
+| UDP/TCP ports | Identify the application or apply a configured traffic category |
+| Input/output interface index | Relate the observation to switch interfaces |
+| Packets and bytes | Compare activity and identify unusually large or quiet flows |
+| Protocol/application metadata | Distinguish traffic types when the exporter provides this data |
+
+The view refreshes after live WebSocket events and on its periodic refresh cycle. A short delay is therefore normal immediately after enabling collection or starting a new stream.
+
+### 9.4 Flow Aliases and Traffic Categories
+
+<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-aliases-categories.png -->
+
+Use **Flow Aliases** to replace an address or flow identifier with an operator-friendly name such as `Main PA Dante` or `Stage Left Video`. Aliases make repeated flows easier to recognise without changing the underlying collected data.
+
+Use **UDP-Port Traffic Categories** to associate known UDP ports with a meaningful category. Choose names that match the conventions used by your production team, and avoid assigning the same port to conflicting categories. Save the configuration, then verify the expected labels in the active-flow table.
+
+### 9.5 Receiver-Path Inspection
+
+<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-receiver-path.png -->
+
+From the active-flow table, select a flow and open **Receiver Path** to inspect the path associated with its receiver. Use this view to correlate a multicast group with the switches and interfaces involved, especially when one receiver is missing or experiencing different behaviour from the others.
+
+Path inspection reflects the topology and flow information currently known to OFS. If a path is missing or incomplete, run discovery, confirm that all participating switches are reachable, and wait for fresh flow records before treating the result as a cabling fault.
+
+### 9.6 Clearing Flow Data
+
+Use **Clear** or **Reset** on the dashboard to remove the collected flow results when beginning a new test or production session. This action is destructive for the analytics history shown by OFS; it does not stop the endpoints' multicast streams and does not disable collection. New records will appear again while analytics remains enabled.
+
+### 9.7 Troubleshooting
+
+| Symptom | Checks |
+|---|---|
+| No flows appear | Confirm analytics is enabled, the collector IPv4 address is correct, UDP 2055 (or the configured port) is allowed, and the switch can route to the collector. |
+| Some fields are blank | Verify that the exporter is sending a current template; available fields depend on the template and application metadata exported by the switch. |
+| Dashboard updates seem delayed | Wait for the 60-second aggregation window and the next dashboard refresh; also check the browser's connection to OFS. |
+| Friendly names do not appear | Confirm the alias or UDP-port category was saved and matches the flow's actual address or port. |
+| Receiver path is incomplete | Run discovery and verify device reachability, topology links, and fresh flow observations. |
+
+---
+
+## 10. Settings
 
 The **Settings** page is the administrative workspace for platform behaviour, user management, and system configuration. It is divided into tabs.
 
 ---
 
-### 9.1 Features
+### 10.1 Features
 
 ![Features settings](images/settings/features.png)
 
@@ -427,7 +516,7 @@ The **Features** tab controls global platform behaviour:
 
 ---
 
-### 9.2 Administration
+### 10.2 Administration
 
 ![Administration settings](images/settings/administration.png)
 
@@ -441,7 +530,7 @@ The **Administration** tab is available to **Admin** users only. It covers:
 
 ---
 
-### 9.3 Device Connection Settings
+### 10.3 Device Connection Settings
 
 ![Device connection settings](images/settings/device%20%20connection%20settings.png)
 
@@ -458,7 +547,7 @@ Per-device credentials set on the Network Devices page always take priority over
 
 ---
 
-### 9.4 Edge Device Settings
+### 10.4 Edge Device Settings
 
 ![Edge Device settings](images/settings/edge%20Device.png)
 
@@ -470,7 +559,7 @@ The **Edge Device** tab controls how OFS discovers and categorises endpoint devi
 
 ---
 
-### 9.5 Debug Tools
+### 10.5 Debug Tools
 
 ![Debug settings](images/settings/debug.png)
 
@@ -483,7 +572,7 @@ The **Debug** tab is only visible when debug mode is enabled in Features. It pro
 
 ---
 
-## 10. User Roles and Permissions
+## 11. User Roles and Permissions
 
 | Role | Capabilities |
 |---|---|
@@ -494,7 +583,7 @@ Roles are assigned by an Admin user on the **Settings → Administration** tab.
 
 ---
 
-## 11. Audit Log
+## 12. Audit Log
 
 The **Audit Log** records every significant action taken in OFS — both user-initiated and system-generated.
 
@@ -520,4 +609,4 @@ The audit log is append-only and cannot be edited or deleted by any user.
 
 ---
 
-*Open Fabric Studio v0.10.2 — Pro AV Edition*
+*Open Fabric Studio v1.4.1 — Pro AV Edition*
