@@ -429,12 +429,13 @@ Before enabling collection, confirm that:
 - Any host or network firewall permits flow-export traffic from the switches to the OFS server. The default collector port is **UDP 2055**.
 - The switches that will export flow records are registered, reachable, and supported Catalyst 9000 devices with the Advantage license.
 - The collector address is not a loopback or management address that the switches cannot route to.
+- the feature has been enabled in OFS Settings > Features
 
 Each switch exports NetFlow v9/IPFIX templates and flow data to the OFS collector. OFS parses the records, aggregates packets and bytes into 60-second windows, stores the results, and sends live update events to the dashboard. The dashboard also performs a periodic refresh approximately every 30 seconds.
 
 ### 9.2 Configuring Collection
 
-<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-config.png -->
+<img width="1714" height="734" alt="collection" src="https://github.com/user-attachments/assets/fcba44e9-2973-4320-b3a4-4569e0bed9e5" />
 
 Open **Multicast Analytics**, then open its **Config** view.
 
@@ -448,7 +449,7 @@ Disabling analytics stops collection but does not imply that previously stored f
 
 ### 9.3 Using the Dashboard
 
-<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-dashboard.png -->
+<img width="1634" height="771" alt="c9k_viz" src="https://github.com/user-attachments/assets/6779c67c-4bbc-47da-806c-ac0915c5336f" />
 
 The dashboard provides summary metrics and an active-flow table. Use the summary cards for a quick view of current multicast activity, then use the table to investigate individual conversations.
 
@@ -466,17 +467,13 @@ The view refreshes after live WebSocket events and on its periodic refresh cycle
 
 ### 9.4 Flow Aliases and Traffic Categories
 
-<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-aliases-categories.png -->
-
 Use **Flow Aliases** to replace an address or flow identifier with an operator-friendly name such as `Main PA Dante` or `Stage Left Video`. Aliases make repeated flows easier to recognise without changing the underlying collected data.
 
 Use **UDP-Port Traffic Categories** to associate known UDP ports with a meaningful category. Choose names that match the conventions used by your production team, and avoid assigning the same port to conflicting categories. Save the configuration, then verify the expected labels in the active-flow table.
 
 ### 9.5 Receiver-Path Inspection
 
-<!-- Screenshot: images/Multicast-Analytics/multicast-analytics-receiver-path.png -->
-
-From the active-flow table, select a flow and open **Receiver Path** to inspect the path associated with its receiver. Use this view to correlate a multicast group with the switches and interfaces involved, especially when one receiver is missing or experiencing different behaviour from the others.
+From the active-flow table, select a flow and open **Receiver Path** to inspect the path associated with its receiver. Use this view to correlate a multicast group with the switches and interfaces involved, especially when one receiver is missing or experiencing different behavior from the others.
 
 Path inspection reflects the topology and flow information currently known to OFS. If a path is missing or incomplete, run discovery, confirm that all participating switches are reachable, and wait for fresh flow records before treating the result as a cabling fault.
 
