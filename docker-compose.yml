@@ -1,5 +1,3 @@
-version: '3.9'
-
 # ── Open Fabric Studio — Release Deployment ───────────────────────────────────
 # Usage:
 #   ./install.sh          # first-time setup (auto-generates secrets + starts)
@@ -30,7 +28,7 @@ services:
       - internal
 
   backend:
-    image: ghcr.io/chrisjlapp/ofs-backend:v1.4.1
+    image: ghcr.io/chrisjlapp/ofs-backend:v1.4.3
     restart: unless-stopped
     depends_on:
       db:
@@ -48,10 +46,11 @@ services:
       test: ["CMD-SHELL", "wget -qO- http://localhost:3001/api/status || exit 1"]
       interval: 15s
       timeout: 5s
-      retries: 3
+      retries: 5
+      start_period: 30s
 
   renderer:
-    image: ghcr.io/chrisjlapp/ofs-renderer:v1.4.1
+    image: ghcr.io/chrisjlapp/ofs-renderer:v1.4.3
     restart: unless-stopped
     depends_on:
       backend:
