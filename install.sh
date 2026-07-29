@@ -18,6 +18,11 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 RESET='\033[0m'
 
+# Always resolve .env and docker-compose.yml relative to this script, regardless
+# of the directory from which the installer was invoked.
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+cd "$SCRIPT_DIR"
+
 echo ""
 echo -e "${BOLD}  Open Fabric Studio — Installer${RESET}"
 echo "  ─────────────────────────────────"
@@ -80,7 +85,16 @@ echo ""
 
 # ── Start the stack ───────────────────────────────────────────────────────────
 echo "  Starting services…"
-docker compose up -d
+if ! docker compose up -d --wait --wait-timeout 180; then
+  echo ""
+  echo -e "${RED}✗ Open Fabric Studio failed to become healthy.${RESET}"
+  echo "  Container status:"
+  docker compose ps --all || true
+  echo ""
+  echo "  Backend and database logs:"
+  docker compose logs --no-color --tail=100 backend db || true
+  exit 1
+fi
 echo ""
 
 # ── Done ──────────────────────────────────────────────────────────────────────
