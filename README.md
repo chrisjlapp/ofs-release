@@ -73,7 +73,11 @@
 
 ## Roadmap
 
-- I am attempting to also support Netgear AV switches currently, but their API has so many bugs it is proving to be very difficult.
+### planned for v1.5.x
+- Working on adding build in NMOS server support and NMOS Crosspoint controller. 
+
+### in progress but uncommited
+- I am attempting to also support Netgear AV switches, but their API has so many bugs it is proving to be very difficult.
 
 ---
 
