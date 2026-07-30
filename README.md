@@ -74,7 +74,8 @@
 ## Roadmap
 
 ### planned for v1.5.x
-- Working on adding built in NMOS server support and NMOS Crosspoint controller. 
+- Working on adding built in NMOS server support and NMOS Crosspoint controller.
+- UI enhancement w/ light mode
 
 ### in progress but uncommited
 - I am attempting to also support Netgear AV switches, but their API has so many bugs it is proving to be very difficult.
