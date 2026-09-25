@@ -11,16 +11,11 @@
   - Preserved switch exporter identity under native Docker Engine, allowing flows to resolve to the correct switch management address.
   - Prevented concurrent database flushes when a previous NetFlow flush is still running.
   - Reduced excessive logs caused by unchanged NetFlow template retransmissions.
-  - Fixed NMOS-JS development proxy socket hang-ups by using the configurable IPv4 loopback target.
-  - Fixed NMOS-JS API routing for origin-relative /x-nmos, /x-dns-sd, and /log requests.
-  - Fixed NMOS Crosspoint routing for root-relative resources and its /sync/ WebSocket.
   - Prevented users from enabling NMOS features when the corresponding services are not installed.
   - Fixed multicast UDP-port editing so partially entered comma-separated values are not immediately discarded.
   - Fixed multicast flow-path dialogs overflowing horizontally on smaller screens.
   - Kept multicast flow, interface, sender, receiver, and switch labels on one line, with truncation and full-value tooltips where needed.
   - Corrected topology node-drag callback typings.
-  - Fixed stale hard-coded v1.4.1 labels on the login page and sidebar; displayed versions now come from the shared application version.
-  - Corrected release Compose image references, first to v1.4.5 and then to v1.4.6.
 
   ## Improvements
 
