@@ -1,5 +1,15 @@
 # Open Fabric Studio — Release Notes v1.4.6
 
+**Release Date:** 2026-10-04
+
+## Bug fixes and improvments Since v1.4.6
+
+ ## Bug fixes
+
+  - Fixed Edge device metadata tracking bug that kept metadata with Interface instead of Device. 
+
+# Open Fabric Studio — Release Notes v1.4.6
+
 **Release Date:** 2026-09-25
 
 ## Bug fixes and improvments Since v1.4.4
