@@ -84,7 +84,7 @@
 
 ## Currently supported Network Hardware
 
-- Catalyst 9000 (validated against 17.15.5)
+- Catalyst 9000 (validated against 17.15.5 and above)
 - Nexus 9300 (validated against 10.5.x)
 
 ---
