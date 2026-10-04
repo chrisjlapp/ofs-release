@@ -59,7 +59,7 @@
 
 <p style="color: #6b7280; max-width: 520px;">
   Real-time visual network configuration and monitoring  for professional AV networks. 
-  Current target is greenfield installations, unknown results with brownfield.
+  Primary target is greenfield install, but Brownfield will do its best to reconcile and merge configs. 
 
   Check the current release notes here https://github.com/chrisjlapp/ofs-release/blob/main/RELEASE_NOTES.md
 
